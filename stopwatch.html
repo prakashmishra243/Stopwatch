@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        #stopwatch{
+            height: 25vh;
+            width: 50.3vh;
+            border: 2px solid black;
+            margin:auto;
+            background-color: gray;
+            
+         }
+         #display{
+            font-size: 6.5rem
+         }
+         button{
+            font-size: 2rem;
+            margin-left: 30px;
+            padding: 6px;
+            border: 10px;
+            cursor: pointer;
+         }
+    </style>
+</head>
+<body>
+    <div id="stopwatch">
+        <div id="display">00:00:00</div>
+        <button id="start" style="background-color:green; color:white">Start</button>
+        <button id="stop" style="background-color: aqua; color:white">Stop</button>
+        <button id="reset" style="background-color: red; color:white">Reset</button>
+    </div>
+    <!-- <audio src="clock.mp3" id="sound"></audio> -->
+
+<script>
+    let clock;
+    let second = 0;
+
+    const display=document.getElementById('display');
+    const sounds = document.getElementById('sound')
+
+    function updatetime(){
+        const hrs = String(Math.floor(second / 3600)).padStart(2,'0');
+        const mins=String(Math.floor((second % 3600)/60)).padStart(2,'0');
+        const secs=String(second % 60).padStart(2,'0');
+        display.textContent=`${hrs}:${mins}:${secs}`;
+    }
+    const startWatch =  document.getElementById('start').addEventListener('click',()=>{
+        clearInterval(clock);
+       // sounds.play();
+        clock = setInterval(()=>{
+            second++;
+            updatetime();
+        },1000);
+    })
+
+    const stopWatch = document.getElementById('stop').addEventListener('click',()=>
+    {
+        clearInterval(clock);
+       // sounds.pause();
+
+    });
+    const restWatch = document.getElementById('reset').addEventListener('click',()=>{
+        clearInterval(clock);
+       // sounds.pause();
+        second = 0;
+        updatetime();
+    })
+</script>
+</body>
+</html>
